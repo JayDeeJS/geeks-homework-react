@@ -1,3 +1,39 @@
 .App {
-    background-color: red;
+    width: 100vw;
+    font-size: 20px;
+}
+.header {
+    background-color: lime;
+    display: flex;
+    color: white;
+    gap: 10px;
+}
+.content {
+    background-color: lightblue;
+}
+.footer {
+    background-color: orange;
+    display: flex;
+    gap: 8px;
+}
+
+.modal {
+    width: 400px;
+    height: 400px;
+    background-color: black;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.4;
 }
