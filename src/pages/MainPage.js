@@ -47,6 +47,11 @@ const MainPage = () => {
         setTodoList([...sorted])
     }
 
+    const handleClose = () => {
+        setIsShow(false)
+        setcurrentTodo(currentTodo === '')
+    }
+
     return (
         <div className="mainPage">
             <Title size={26}>
@@ -57,7 +62,7 @@ const MainPage = () => {
             <TodoList list={todoList} handleDelete={handleDelete} handleOpen={handleOpen}/>
             {
               isShow &&
-              <ModalWindow handleEdit={handleEdit} currentTodo={currentTodo} handleAdd={handleAdd} handleClose={() => setIsShow(false)}/>
+              <ModalWindow handleEdit={handleEdit} currentTodo={currentTodo} handleAdd={handleAdd} handleClose={handleClose}/>
             }
         </div>
     )
