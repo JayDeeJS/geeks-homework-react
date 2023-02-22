@@ -1,13 +1,13 @@
 import React from 'react';
-import Header from './dz1_components/Header';
 
 import "./index.css";
+import MainPage from './pages/MainPage';
 
 function App() {
 
   return (
     <div className="App">
-      <Header/>
+      <MainPage/>
     </div>
   );
 }
