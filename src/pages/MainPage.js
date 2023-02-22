@@ -49,7 +49,7 @@ const MainPage = () => {
 
     const handleClose = () => {
         setIsShow(false)
-        setcurrentTodo(currentTodo === '')
+        setcurrentTodo(currentTodo === {})
     }
 
     return (
