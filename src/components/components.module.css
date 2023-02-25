@@ -1,0 +1,13 @@
+.button {
+    font-size: 26px;
+}
+
+.buttonActive {
+    font-size: 26px;
+    border: 1px solid blue;
+}
+
+.inputCustom {
+    font-size: 25px;
+    outline: 1px solid orangered;
+}

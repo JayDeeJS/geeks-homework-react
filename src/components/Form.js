@@ -22,6 +22,7 @@ const Form = ({handleAdd, currentTodo, handleClose, handleEdit}) => {
             handleClose()
         } else {
             handleAdd(value)
+            handleClose()
         }
     }
 

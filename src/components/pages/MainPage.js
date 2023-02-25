@@ -1,17 +1,10 @@
-import { useState } from "react"
-import ModalWindow from "../components/ModalWindow"
-import Title from "../components/Title"
-import TodoList from "../components/TodoList"
-
-const list = [
-    {id: 1, title: "go to shop 1", description: "some desc"},
-    {id: 2, title: "go to shop 2", description: "some desc"},
-    {id: 3, title: "go to shop 3", description: "some desc"},
-    {id: 4, title: "go to shop 4", description: "some desc"},
-]
+import { useEffect, useState } from "react"
+import ModalWindow from "../ModalWindow"
+import Title from "../Title"
+import TodoList from "../TodoList"
 
 const MainPage = () => {
-    const [todoList, setTodoList] = useState(list)
+    const [todoList, setTodoList] = useState([])
     const [isShow, setIsShow] = useState(false)
     const [currentTodo, setcurrentTodo] = useState({})
   
@@ -22,6 +15,9 @@ const MainPage = () => {
   
     const handleDelete = (id) => {
       const newTodoList = todoList.filter((item) => item.id !== id)
+      if (newTodoList.length === 0) {
+        localStorage.setItem('list', JSON.stringify(newTodoList))
+      }
       setTodoList(newTodoList)
     }
   
@@ -42,15 +38,22 @@ const MainPage = () => {
     }
     console.log(currentTodo);
 
-    const sortByDate = () => {
-        const sorted = todoList.sort((a, b) => b.id - a.id)
-        setTodoList([...sorted])
-    }
-
     const handleClose = () => {
         setIsShow(false)
-        setcurrentTodo(currentTodo === {})
+        setcurrentTodo({})
     }
+
+    useEffect(() => {
+      const list = JSON.parse(localStorage.getItem('list'))
+      setTodoList(list);
+    }, [])
+
+    useEffect(() => {
+      if (todoList.length === 0) {
+        return
+      }
+      localStorage.setItem('list', JSON.stringify(todoList))
+    }, [todoList])
 
     return (
         <div className="mainPage">
@@ -58,7 +61,6 @@ const MainPage = () => {
                 Todo List
             </Title>
             <button onClick={() => setIsShow(true)}>Create task</button>
-            <button onClick={sortByDate}>Sort asc</button>
             <TodoList list={todoList} handleDelete={handleDelete} handleOpen={handleOpen}/>
             {
               isShow &&
