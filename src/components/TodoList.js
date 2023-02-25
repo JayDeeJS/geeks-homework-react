@@ -16,7 +16,11 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
     const filterSort = (type) => {
         let filteredList = [...list]
         if (searchValue) {
-            filteredList = filteredList.filter((item) => item.title.includes(searchValue))
+            let searchLowerCase = searchValue.toLowerCase()
+            filteredList = filteredList.filter((item) => {
+                let titleLowerCase = item.title.toLowerCase()
+                return titleLowerCase.includes(searchLowerCase)
+            })
         }
         switch (type) {
             case 'asc':
