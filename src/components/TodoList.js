@@ -14,15 +14,19 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
     const [searchValue, setSearchValue] = useState('')
 
     const filterSort = (type) => {
+        let filteredList = [...list]
+        if (searchValue) {
+            filteredList = filteredList.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+        }
         switch (type) {
             case 'asc':
-                return list.sort((a, b) => b.id - a.id)
+                return filteredList.sort((a, b) => b.id - a.id)
             case 'desc':
-                return list.sort((a, b) => a.id - b.id)
+                return filteredList.sort((a, b) => a.id - b.id)
             case 'letters':
-                return list.sort((a, b) => a.title.localeCompare(b.title))
+                return filteredList.sort((a, b) => a.title.localeCompare(b.title))
             default:
-                return list
+                return filteredList
         }
     }
 
@@ -46,9 +50,9 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
 
     return (
         <div className="todoList">
-            <Input value={searchValue} onChange={(e) => handleSearch(e)} placeholder='Search title'/>
-            {types.map((item) =>
-                <button className={classNames(classes.buttonActive, classes.button, item === type)} onClick={() => handleChangeType(item)}>{item}</button>
+            <Input value={searchValue} onChange={(e) => handleSearch(e)} placeholder='Search by title'/>
+            {types.map((item, i) =>
+                <button key={i} className={classNames(classes.buttonActive, classes.button, item === type)} onClick={() => handleChangeType(item)}>{item}</button>
             )}
             {filterSort(type).map((item) =>
                 <TodoCart key={item.id} todo={item} handleOpen={handleOpen} handleDelete={handleDelete}/>

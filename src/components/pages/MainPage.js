@@ -36,7 +36,7 @@ const MainPage = () => {
       setIsShow(true)
       setcurrentTodo(todo)
     }
-    console.log(currentTodo);
+    // console.log(currentTodo);
 
     const handleClose = () => {
         setIsShow(false)
