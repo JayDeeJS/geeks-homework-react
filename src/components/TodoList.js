@@ -16,7 +16,7 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
     const filterSort = (type) => {
         let filteredList = [...list]
         if (searchValue) {
-            filteredList = filteredList.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+            filteredList = filteredList.filter((item) => item.title.includes(searchValue))
         }
         switch (type) {
             case 'asc':
@@ -50,7 +50,7 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
 
     return (
         <div className="todoList">
-            <Input value={searchValue} onChange={(e) => handleSearch(e)} placeholder='Search by title'/>
+            <Input value={searchValue} onChange={handleSearch} placeholder='Search by title'/>
             {types.map((item, i) =>
                 <button key={i} className={classNames(classes.buttonActive, classes.button, item === type)} onClick={() => handleChangeType(item)}>{item}</button>
             )}
