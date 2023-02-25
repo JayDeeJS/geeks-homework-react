@@ -14,14 +14,8 @@ const TodoList = ({list, handleOpen, handleDelete}) => {
     const [searchValue, setSearchValue] = useState('')
 
     const filterSort = (type) => {
-        let filteredList = [...list]
-        if (searchValue) {
-            let searchLowerCase = searchValue.toLowerCase()
-            filteredList = filteredList.filter((item) => {
-                let titleLowerCase = item.title.toLowerCase()
-                return titleLowerCase.includes(searchLowerCase)
-            })
-        }
+        const filteredList = [...list].filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+
         switch (type) {
             case 'asc':
                 return filteredList.sort((a, b) => b.id - a.id)
