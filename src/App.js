@@ -31,10 +31,10 @@ function App() {
 
   return (
     <div className="App">
-      <input value={value} onChange={(e) => setValue(e.target.value)}/>
+      {/* <input value={value} onChange={(e) => setValue(e.target.value)}/>
       <ExmMemo log={log} amount={amount}/>
-      <ErrorBoundary title='Hello world App'/>
-      {/* <MainPage/> */}
+      <ErrorBoundary title='Hello world App'/> */}
+      <MainPage/>
     </div>
   );
 }
