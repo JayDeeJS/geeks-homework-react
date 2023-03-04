@@ -10,7 +10,7 @@ export const fetchTodos = async() => {
 }
 
 export const fetchTodosById = async(id) => {
-    const response = $api.get(`${ENDPOINTS.TODOS}/${id}`)
+    const response = await $api.get(`${ENDPOINTS.TODOS}/${id}`)
     return response
 }
 

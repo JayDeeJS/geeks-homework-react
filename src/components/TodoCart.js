@@ -1,26 +1,17 @@
 import { Component } from "react"
-
-// const TodoCart = ({todo, handleOpen, handleDelete}) => {
-
-//     return (
-//         <div className="todocart">
-//             <h1>{todo.title}</h1>
-//             <h1>{todo.description}</h1>
-//             <button onClick={() => handleOpen(todo)}>Edit</button>
-//             <button onClick={() => handleDelete(todo.id)}>Delete</button>
-//         </div>
-//     )
-// }
-// export default TodoCart
+import { Link } from "react-router-dom"
 
 class TodoCart extends Component {
 
     render() {
         const {todo, handleOpen, handleDelete} = this.props
         return (
-            <div className="todocart">
-                <h1>{todo.title}</h1>
-                <h1>{todo.description}</h1>
+            <div className="TodoLink">
+                <Link className="link" to={`/${todo.id}`}>
+                    <div onClick={() => console.log(todo.id)} className="todocart">
+                        <h1>{todo.title}</h1>
+                    </div>
+                </Link>
                 <button onClick={() => handleOpen(todo)}>Edit</button>
                 <button onClick={() => handleDelete(todo.id)}>Delete</button>
             </div>

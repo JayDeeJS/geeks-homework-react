@@ -53,7 +53,11 @@ const TodoList = ({list, handleOpen, handleDelete, page, handlePrevPage, handleN
                 <button key={i} className={classNames(classes.buttonActive, classes.button, item === type)} onClick={() => handleChangeType(item)}>{item}</button>
             )}
             {filterSort(type).map((item) =>
-                <TodoCart key={item.id} todo={item} handleOpen={handleOpen} handleDelete={handleDelete}/>
+                <TodoCart
+                  key={item.id}
+                  todo={item}
+                  handleOpen={handleOpen}
+                  handleDelete={handleDelete}/>
             )}
             <button onClick={handlePrevPage}>Prev</button>
             <h2>{page}</h2>
