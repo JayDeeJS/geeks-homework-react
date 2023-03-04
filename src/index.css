@@ -76,3 +76,8 @@ body {
     border: 1px solid lime;
     padding: 20px;
 }
+
+.active {
+    color: orangered;
+    font-size: 30px;
+}

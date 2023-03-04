@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { fetchTodosByParams } from "../../requests"
 import ModalWindow from "../ModalWindow"
 import Title from "../Title"
 import TodoList from "../TodoList"
@@ -7,6 +9,8 @@ const MainPage = () => {
     const [todoList, setTodoList] = useState([])
     const [isShow, setIsShow] = useState(false)
     const [currentTodo, setcurrentTodo] = useState({})
+
+    const [page, setPage] = useState(1)
   
     const handleAdd = (data) => {
       const newTodoList = [...todoList, {...data, id: Date.now()}]
@@ -15,9 +19,6 @@ const MainPage = () => {
   
     const handleDelete = (id) => {
       const newTodoList = todoList.filter((item) => item.id !== id)
-      if (newTodoList.length === 0) {
-        localStorage.setItem('list', JSON.stringify(newTodoList))
-      }
       setTodoList(newTodoList)
     }
   
@@ -31,12 +32,20 @@ const MainPage = () => {
       })
       setTodoList(newTodoList)
     }
+ 
+    const handlePrevPage = () => {
+      if (page === 1) return
+      setPage(page - 1)
+    }
   
+    const handleNextPage = () => {
+      setPage(page + 1)
+    }
+
     const handleOpen = (todo) => {
       setIsShow(true)
       setcurrentTodo(todo)
     }
-    // console.log(currentTodo);
 
     const handleClose = () => {
         setIsShow(false)
@@ -44,16 +53,14 @@ const MainPage = () => {
     }
 
     useEffect(() => {
-      const list = JSON.parse(localStorage.getItem('list'))
-      setTodoList(list);
-    }, [])
-
-    useEffect(() => {
-      if (todoList.length === 0) {
-        return
+      const params = {
+        _limit: 3,
+        _page: page
       }
-      localStorage.setItem('list', JSON.stringify(todoList))
-    }, [todoList])
+      fetchTodosByParams(params).then(({data}) => {
+        setTodoList(data);
+      })
+    }, [page])
 
     return (
         <div className="mainPage">
@@ -61,7 +68,12 @@ const MainPage = () => {
                 Todo List
             </Title>
             <button onClick={() => setIsShow(true)}>Create task</button>
-            <TodoList list={todoList} handleDelete={handleDelete} handleOpen={handleOpen}/>
+            <TodoList
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              page={page} list={todoList}
+              handleDelete={handleDelete}
+              handleOpen={handleOpen}/>
             {
               isShow &&
               <ModalWindow handleEdit={handleEdit} currentTodo={currentTodo} handleAdd={handleAdd} handleClose={handleClose}/>

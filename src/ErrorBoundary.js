@@ -36,7 +36,7 @@ class ErrorBoundary extends Component {
         // }
         if (this.state.hasError) {
             return (
-                <h1>Something went wrong</h1>
+                <h1 onClick={this.handle}>Something went wrong</h1>
             )
         }
 
