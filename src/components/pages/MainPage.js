@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { lazy, useContext, useEffect, useState } from "react"
 import { fetchTodosByParams } from "../../requests"
-import ModalWindow from "../ModalWindow"
+import { StoreContext } from "../../store/StoreContext"
+// import ModalWindow from "../ModalWindow"
 import Title from "../Title"
 import TodoList from "../TodoList"
 
+const ModalWindow = lazy(() => import("../ModalWindow"))
+
 const MainPage = () => {
-    const [todoList, setTodoList] = useState([])
+    const {todoList, setTodoList, searchValue, status, setStatus} = useContext(StoreContext)
     const [isShow, setIsShow] = useState(false)
     const [currentTodo, setcurrentTodo] = useState({})
-
     const [page, setPage] = useState(1)
   
     const handleAdd = (data) => {
@@ -53,14 +54,32 @@ const MainPage = () => {
     }
 
     useEffect(() => {
+      setStatus('pending')
       const params = {
         _limit: 3,
         _page: page
       }
-      fetchTodosByParams(params).then(({data}) => {
-        setTodoList(data);
+      fetchTodosByParams(params).then((data) => {
+        if (data.status === 200) {
+          setTodoList(data.data);
+          setStatus('fullfilled')
+        } else {
+          setStatus('rejected')
+        }
       })
     }, [page])
+
+    useEffect(() => {
+      if (!searchValue) {
+        const params = {
+          _limit: 3,
+          _page: page
+        }
+        fetchTodosByParams(params).then(({data}) => {
+          setTodoList(data)
+        })
+      }
+  }, [searchValue])
 
     return (
         <div className="mainPage">
@@ -71,7 +90,7 @@ const MainPage = () => {
             <TodoList
               handlePrevPage={handlePrevPage}
               handleNextPage={handleNextPage}
-              page={page} list={todoList}
+              page={page}
               handleDelete={handleDelete}
               handleOpen={handleOpen}/>
             {

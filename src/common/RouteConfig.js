@@ -1,7 +1,16 @@
+import React from "react"
+import { createBrowserRouter, Link } from "react-router-dom"
 import AboutPage from "../components/pages/AboutPage"
 import ContactsPage from "../components/pages/Contacts"
-import IdTodo from "../components/pages/IdTodo"
 import MainPage from "../components/pages/MainPage"
+
+function delayForDemo(promise) {
+    return new Promise(resolve => {
+        setTimeout(resolve, 2000)
+    }).then(() => promise)
+}
+
+const IdTodo = React.lazy(() => delayForDemo(import('../components/pages/IdTodo')))
 
 export const PATHS = {
     MAIN: '/',
@@ -28,3 +37,22 @@ export const routes = [
         element: <IdTodo/>
     },
 ]
+
+export const routesV6 = createBrowserRouter(
+    [
+        {
+            path: "/",
+            element: (
+              <div>
+                <h1>Hello World</h1>
+                <Link to="/about">About Us</Link>
+              </div>
+            ),
+            children: [
+                {
+                    
+                }
+            ]
+        },
+    ]
+)

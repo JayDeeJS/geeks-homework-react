@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchTodosById } from "../../requests";
+import { StoreContext } from "../../store/StoreContext";
 
 const IdTodo = () => {
 
     const {id} = useParams()
-    const [idTodo, setIdTodo] = useState({});
+
+    const {todoStore, setTodoStore} = useContext(StoreContext)
 
     useEffect(() => {
-        fetchTodosById(id).then(({data}) => {
-            setIdTodo(data);
-        });
-    }, [id]);
+        fetchTodosById(id)
+            .then(({data}) => {
+                setTodoStore(data.data)
+            });
+    }, []);
 
     return (
         <div className="IdTodo">
-            <h1>{idTodo.title}</h1>
+            
         </div>
     )
 };

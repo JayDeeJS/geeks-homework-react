@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 class TodoCart extends Component {
 
@@ -8,7 +8,7 @@ class TodoCart extends Component {
         return (
             <div className="TodoLink">
                 <Link className="link" to={`/${todo.id}`}>
-                    <div onClick={() => console.log(todo.id)} className="todocart">
+                    <div className="todocart">
                         <h1>{todo.title}</h1>
                     </div>
                 </Link>
